@@ -12,6 +12,3 @@ To run, `npm start`.
 
 To test, create test db (`createdb minimal-sequelize-app_TEST`
 ) then run `npm test`.
-
-
-

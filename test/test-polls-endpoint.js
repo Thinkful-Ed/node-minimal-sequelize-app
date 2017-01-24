@@ -186,36 +186,44 @@ describe('Polls API resource', function() {
       });
   });
 
-  describe('DELETE endpoint', function() {
-    // strategy:
-    //  1. get a poll
-    //  2. make a DELETE request for that poll's id
-    //  3. assert that response has right status code
-    //  4. prove that poll with the id doesn't exist in db anymore
-    it('delete a poll by id', function() {
+// we're commenting out the delete endpoint tests because
+// we've also commented out that endpoint so the example
+// data in our live app doesn't get deleted as students
+// play with the live version of this app. we've kept the
+// code here though so you can see what the delete
+// endpoint looks like
 
 
-      // TODO add assertions about associated grades being deleted
-      let poll;
+  // describe('DELETE endpoint', function() {
+  //   // strategy:
+  //   //  1. get a poll
+  //   //  2. make a DELETE request for that poll's id
+  //   //  3. assert that response has right status code
+  //   //  4. prove that poll with the id doesn't exist in db anymore
+  //   it('delete a poll by id', function() {
 
-      return Poll
-        .findOne()
-        .then(function(_poll) {
-          poll = _poll;
-          return chai.request(app).delete(`/polls/${poll.id}`);
-        })
-        .then(function(res) {
-          res.should.have.status(204);
-          return Poll.findById(poll.id);
-        })
-        .then(function(_poll) {
-          // when a variable's value is null, chaining `should`
-          // doesn't work. so `_poll.should.be.null` would raise
-          // an error. `should.be.null(_poll)` is how we can
-          // make assertions about a null value.
-          should.not.exist(_poll);
-        });
-    });
-  });
+
+  //     // TODO add assertions about associated grades being deleted
+  //     let poll;
+
+  //     return Poll
+  //       .findOne()
+  //       .then(function(_poll) {
+  //         poll = _poll;
+  //         return chai.request(app).delete(`/polls/${poll.id}`);
+  //       })
+  //       .then(function(res) {
+  //         res.should.have.status(204);
+  //         return Poll.findById(poll.id);
+  //       })
+  //       .then(function(_poll) {
+  //         // when a variable's value is null, chaining `should`
+  //         // doesn't work. so `_poll.should.be.null` would raise
+  //         // an error. `should.be.null(_poll)` is how we can
+  //         // make assertions about a null value.
+  //         should.not.exist(_poll);
+  //       });
+  //   });
+  // });
 
 });

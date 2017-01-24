@@ -27,12 +27,14 @@ app.get('/polls/:id', (req, res) => Poll.findById(req.params.id)
 
 app.post('/polls', (req, res) => {
   const requiredFields = ['name', 'question'];
-  requiredFields.forEach(field => {
-    // ensure that required fields have been sent over
-    if (! (field in req.body && req.body[field])) {
-        return res.status(400).json({message: `Must specify value for ${field}`});
-     }
-  });
+  for (let i=0; i<requiredFields.length; i++) {
+    const field = requiredFields[i];
+    if (!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`
+      console.error(message);
+      return res.status(400).send(message);
+    }
+  }
   const pollData = {
     name: req.body.name,
     question: req.body.question
@@ -85,16 +87,22 @@ app.put('/polls/:id', (req, res) => {
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
-app.delete('/polls/:id', (req, res) => {
-  return Poll
-    .destroy({
-      where: {
-        id: req.params.id
-      }
-    })
-    .then(poll => res.status(204).end())
-    .catch(err => res.status(500).json({message: 'Internal server error'}));
-});
+// we're commenting out the delete endpoint because this is
+// a live app, embedded in the curriculum, and we don't want
+// all of our example data to be deleted when students
+// play with the app. we've kept the code here though so
+// you can see what the delete endpoint looks like
+
+// app.delete('/polls/:id', (req, res) => {
+//   return Poll
+//     .destroy({
+//       where: {
+//         id: req.params.id
+//       }
+//     })
+//     .then(poll => res.status(204).end())
+//     .catch(err => res.status(500).json({message: 'Internal server error'}));
+// });
 
 app.use('*', (req, res) => res.status(404).json({message: 'Not Found'}));
 

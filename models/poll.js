@@ -10,7 +10,7 @@ const Sequelize = require('sequelize');
 const {sequelize} = require('../db/sequelize');
 
 
-const Poll = sequelize.define('Polls', {
+const Poll = sequelize.define('poll', {
     name: {
       type: Sequelize.TEXT,
       // this stops this column from being blank
